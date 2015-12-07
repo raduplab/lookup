@@ -13,7 +13,7 @@ var getUserAgent =function( ){
 
     onsys = mb == "" ? sys : mb;
 
-    return "You're using " + bw + " on " + onsys ".";
+    return "You're using " + bw + " on " + onsys + ".";
 }
 
 var temp = {
