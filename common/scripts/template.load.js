@@ -23,7 +23,7 @@ template.fn = template.prototype = {
                 if ( /^{(.*)}$/.test( radup( t[i] ).text().trim() ) ){
                     vals = /^{(.*)}$/.exec( radup( t[i] ).text().trim() )[1];
                     for ( key in this.vars ){
-                        if ( key == vals && t[i]..tagName != "TITLE" )
+                        if ( key == vals && t[i] && tagName != "TITLE" )
                             radup( t[i] ).html( radup( t[i] ).text().replace( (new RegExp( "({" + vals + "})" )), this.vars[ vals ] )  );
                         else if ( key == vals )
                             document.title = this.vals[ vals ];
