@@ -3,9 +3,10 @@
 var getUserAgent =function( ){
     var userAgent = navigator.userAgent;
 
-    var system = /(windows|linux|mac)/i.exec( userAgent )
-    var mobile = /(ipad|iphone|windows\sphone|android)/i.exec( userAgent )
-    var browser = /(msie|chrome\/[^\s]+|safari|opera|firefox)/i.exec( userAgent )
+    var system = /(windows|linux|mac)/i.exec( userAgent );
+    var mobile = /(ipad|iphone|windows\sphone|android)/i.exec( userAgent );
+    var edge = /(edge\/[^\s]+)/i.exec( userAgent );
+    var browser = edge == null ? /(msie|chrome\/[^\s]+|safari|opera|firefox)/i.exec( userAgent ) : edge;
 
     sys = system != null ? system[1] : "";
     mb = mobile != null ? mobile[1] : "";
