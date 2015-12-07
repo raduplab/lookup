@@ -20,7 +20,7 @@ template.fn = template.prototype = {
         if ( html == "*" ){
             var t = document.getElementsByTagName( "*" );
             for ( var i=0; i < t.length; i++ ){
-                if ( /^{(.*)}$/.text( radup( t[i] ).text().trim() ) ){
+                if ( /^{(.*)}$/.test( radup( t[i] ).text().trim() ) ){
                     vals = /^{(.*)}$/.exec( radup( t[i] ).text().trim() )[1];
                     for ( key in this.vars ){
                         if ( key == vals )
