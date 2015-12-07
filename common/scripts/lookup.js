@@ -20,4 +20,8 @@ var temp = {
     "user-agent": getUserAgent()
 };
 
+radup( window ).load(function(){
+    template( temp ).render( "*" );
+});
+
 })();
