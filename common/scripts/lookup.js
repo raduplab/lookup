@@ -18,6 +18,7 @@ var getUserAgent =function( ){
 }
 
 var temp = {
+    "title": "IP lookup",
     "user-agent": getUserAgent()
 };
 
