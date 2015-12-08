@@ -21,25 +21,23 @@ template.fn = template.prototype = {
         if ( html == "*" ){
             var t = document.getElementsByTagName( "*" );
             for ( var key in this.vars ){
-                var reKey = new RegExp( "{(?:[\s]+|)(" + key + ")(?:[^}]+|)}", "gi" ),
+                var reKey = new RegExp( "{(?:[\s]+|)(" + key + ")(?:[^}]+|)}", "gim" ),
                     i = 0;
 
                 for ( ; i < t.length; i++ ){
-                    if ( t[i].tagName.toLowerCase() == "html" ) continue;
-
                     var obj = t[i];
                     var ctx = radup.trim( radup( obj ).text() );
                     if ( reKey.test( ctx ) ){
-                        console.log( obj.tagName );
-                        console.log( reKey.exec( ctx ) );
                         var val = this.vars[ radup.trim( reKey.exec( ctx )[1] ) ];
                         var ret = ctx.replace( reKey, val );
 
                         if ( obj.tagName.toLowerCase() == "title" ){
                             document.title = ret;
                         }
-                        else {
-                            //radup( obj ).html( ret );
+                        else if ( obj.tagName.toLowerCase() == "html" ) {
+                            var ctx = radup( obj ).html()
+                            var ret = ctx.replace( reKey, val );
+                            radup( obj ).html( ret );
                         }
                     }
                 }
