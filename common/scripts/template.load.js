@@ -26,16 +26,16 @@ template.fn = template.prototype = {
 
                 for ( ; i < t.length; i++ ){
                     var obj = t[i];
-                    var ctx = radup.trim( obj.outerHTML );
+                    var ctx = radup.trim( radup( obj ).text() );
                     if ( reKey.test( ctx ) ){
                         var val = this.vars[ radup.trim( reKey.exec( ctx )[1] ) ];
                         var ret = ctx.replace( reKey, val );
+
                         if ( obj.tagName.toLowerCase() == "title" ){
-                            ret = radup( obj ).text().replace( reKey, val );
                             document.title = ret;
                         }
                         else {
-                            obj.outerHTML = ret;
+                            radup( obj ).html( ret );
                         }
                     }
                 }
