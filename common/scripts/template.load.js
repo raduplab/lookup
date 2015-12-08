@@ -21,7 +21,7 @@ template.fn = template.prototype = {
         if ( html == "*" ){
             var t = document.getElementsByTagName( "*" );
             for ( var key in this.vars ){
-                var reKey = new RegExp( "{(?:[\s]+|)(" + key + ")(?:[^}]*)}", "gim" ),
+                var reKey = new RegExp( "{(?:[\s]+|)(" + key + ")(?:[^}]+|$)}", "gim" ),
                     i = 0;
 
                 for ( ; i < t.length; i++ ){
@@ -30,6 +30,7 @@ template.fn = template.prototype = {
                     var obj = t[i];
                     var ctx = radup.trim( radup( obj ).text() );
                     if ( reKey.test( ctx ) ){
+                        console.log( reKey.exec( ctx ) );
                         var val = this.vars[ radup.trim( reKey.exec( ctx )[1] ) ];
                         var ret = ctx.replace( reKey, val );
 
