@@ -4,7 +4,8 @@ var template = (function( ){
 
 var template = function( vars ){
     return new template.fn.init( vars );
-};
+},
+    rKey = /{([^$]+)}/;
 
 template.fn = template.prototype = {
     init: function( vars ){
@@ -20,8 +21,10 @@ template.fn = template.prototype = {
         if ( html == "*" ){
             var t = document.getElementsByTagName( "*" );
             for ( var i=0; i < t.length; i++ ){
-                if ( /^{(.*)}$/.test( radup( t[i] ).text().trim() ) ){
-                    tKey = /^{(.*)}$/.exec( radup( t[i] ).text().trim() )[1];
+                var tagVal = radup( t[i] ).text().trim();
+
+                if ( rKey.test( tagVal ) ){
+                    tKey = rKey.exec( tagVal )[1];
                     for ( key in this.vars ){
                         if ( key == radup.trim( tKey ) ){
                             var obj = t[i], val = this.vars[ tKey ];
