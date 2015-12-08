@@ -21,12 +21,18 @@ template.fn = template.prototype = {
             var t = document.getElementsByTagName( "*" );
             for ( var i=0; i < t.length; i++ ){
                 if ( /^{(.*)}$/.test( radup( t[i] ).text().trim() ) ){
-                    vals = /^{(.*)}$/.exec( radup( t[i] ).text().trim() )[1];
+                    tKey = /^{(.*)}$/.exec( radup( t[i] ).text().trim() )[1];
                     for ( key in this.vars ){
-                        if ( key == vals && t[i].tagName != "TITLE" )
-                            radup( t[i] ).html( radup( t[i] ).text().replace( (new RegExp( "({" + vals + "})" )), this.vars[ vals ] )  );
-                        else if ( key == vals )
-                            document.title = this.vars[ vals ];
+                        if ( key == radup.trim( tKey ) ){
+                            var obj = t[i], val = this.vars[ tKey ];
+                            var ret = radup( obj ).text().replace( (new RegExp( "({" + tKey + "})" )), val );
+                            if ( obj.tagName.toLowerCase() == "title" ){
+                                document.title = ret;
+                            }
+                            else{
+                                radup( obj ).html( ret );
+                            }
+                        }
                     }
                 }
             }
