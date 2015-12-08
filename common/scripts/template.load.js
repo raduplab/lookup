@@ -21,22 +21,21 @@ template.fn = template.prototype = {
         if ( html == "*" ){
             var t = document.getElementsByTagName( "*" );
             for ( var key in this.vars ){
-                var reKey = new RegExp( "{(?:[\s]+|)(" + key + ")(?:[^}]+|)}", "gim" ),
+                var reKey = new RegExp( "{(?:[\s]+|)(" + key + ")(?:[^}]+|)}", "i" ),
                     i = 0;
 
                 for ( ; i < t.length; i++ ){
                     var obj = t[i];
                     var ctx = radup.trim( radup( obj ).text() );
                     if ( reKey.test( ctx ) ){
+                        var key_rep = new RegExp( "{(?:[\s]+|)(" + key + ")(?:[^}]+|)}", "gi" );
                         var val = this.vars[ radup.trim( reKey.exec( ctx )[1] ) ];
-                        var ret = ctx.replace( reKey, val );
+                        var ret = ctx.replace( key_rep, val );
 
                         if ( obj.tagName.toLowerCase() == "title" ){
                             document.title = ret;
                         }
                         else if ( obj.tagName.toLowerCase() == "html" ) {
-                            var ctx = radup( obj ).html()
-                            var ret = ctx.replace( reKey, val );
                             radup( obj ).html( ret );
                         }
                     }
