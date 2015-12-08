@@ -35,7 +35,7 @@ template.fn = template.prototype = {
                         if ( obj.tagName.toLowerCase() == "title" ){
                             document.title = ret;
                         }
-                        else if ( obj.tagName.toLowerCase() == "html" ) {
+                        else {
                             radup( obj ).html( ret );
                         }
                     }
