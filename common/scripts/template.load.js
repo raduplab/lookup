@@ -39,7 +39,7 @@ template.fn = template.prototype = {
                             document.title = ret;
                         }
                         else {
-                            radup( obj ).html( ret );
+                            //radup( obj ).html( ret );
                         }
                     }
                 }
