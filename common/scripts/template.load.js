@@ -21,7 +21,7 @@ template.fn = template.prototype = {
         if ( html == "*" ){
             var t = document.getElementsByTagName( "*" );
             for ( var key in this.vars ){
-                var reKey = new RegExp( "{(?:[\s]+|)(" + key + ")(?:[\s]+|)}", "gim" ),
+                var reKey = new RegExp( "{(?:[\s]+|)(" + key + ")(?:[^}]*)}", "gim" ),
                     i = 0;
 
                 for ( ; i < t.length; i++ ){
