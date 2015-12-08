@@ -30,6 +30,7 @@ template.fn = template.prototype = {
                     var obj = t[i];
                     var ctx = radup.trim( radup( obj ).text() );
                     if ( reKey.test( ctx ) ){
+                        console.log( obj.tagName );
                         console.log( reKey.exec( ctx ) );
                         var val = this.vars[ radup.trim( reKey.exec( ctx )[1] ) ];
                         var ret = ctx.replace( reKey, val );
