@@ -5,7 +5,7 @@ var template = (function( ){
 var template = function( vars ){
     return new template.fn.init( vars );
 },
-    rKey = /{([^$]+)}/;
+    rKey = /{([^$]+)}/gi;
 
 template.fn = template.prototype = {
     init: function( vars ){
@@ -20,21 +20,22 @@ template.fn = template.prototype = {
 
         if ( html == "*" ){
             var t = document.getElementsByTagName( "*" );
-            for ( var i=0; i < t.length; i++ ){
-                var tagVal = radup( t[i] ).text().trim();
+            for ( var key in this.vars ){
+                var reKey = new RegExp( "{(?:[\s]+|)(" + key + ")(?:[\s]+|)}", "gim" ),
+                    i = 0;
 
-                if ( rKey.test( tagVal ) ){
-                    tKey = rKey.exec( tagVal )[1];
-                    for ( key in this.vars ){
-                        if ( key == radup.trim( tKey ) ){
-                            var obj = t[i], val = this.vars[ tKey ];
-                            var ret = radup( obj ).text().replace( (new RegExp( "({" + tKey + "})" )), val );
-                            if ( obj.tagName.toLowerCase() == "title" ){
-                                document.title = ret;
-                            }
-                            else{
-                                radup( obj ).html( ret );
-                            }
+                for ( ; i < t.length; i++ ){
+                    var obj = t[i];
+                    var ctx = radup.trim( obj.outerHTML );
+                    if ( reKey.test( ctx ) ){
+                        var val = this.vars[ radup.trim( reKey.exec( ctx )[1] ) ];
+                        var ret = ctx.replace( reKey, val );
+                        if ( obj.tagName.toLowerCase() == "title" ){
+                            ret = radup( obj ).text().replace( reKey, val );
+                            document.title = ret;
+                        }
+                        else {
+                            obj.outerHTML = ret;
                         }
                     }
                 }
