@@ -25,6 +25,8 @@ template.fn = template.prototype = {
                     i = 0;
 
                 for ( ; i < t.length; i++ ){
+                    if ( t[i].tagName.toLowerCase() == "style" ) continue;
+
                     var obj = t[i];
                     var ctx = radup.trim( radup( obj ).text() );
                     if ( reKey.test( ctx ) ){
