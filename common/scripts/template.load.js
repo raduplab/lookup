@@ -21,14 +21,14 @@ template.fn = template.prototype = {
         if ( html == "*" ){
             var t = document.getElementsByTagName( "*" );
             for ( var key in this.vars ){
-                var reKey = new RegExp( "{(?:[\s]+|)(" + key + ")(?:[\s]+|)}", "i" ),
+                var reKey = new RegExp( "{(" + key + ")}", "i" ),
                     i = 0;
 
                 for ( ; i < t.length; i++ ){
                     var obj = t[i];
                     var ctx = radup.trim( radup( obj ).text() );
                     if ( reKey.test( ctx ) ){
-                        var key_rep = new RegExp( "{(?:[\s]+|)(" + key + ")(?:[\s]+|)}", "gi" );
+                        var key_rep = new RegExp( "{(" + key + ")}", "gi" );
                         var val = this.vars[ radup.trim( reKey.exec( ctx )[1] ) ];
                         var ret = ctx.replace( key_rep, val );
 
